@@ -390,7 +390,7 @@ header {
 }
 
 .img-container {
-	height: 200px;
+	height: 250px;    /*para ajustar el tamaño de las imagenes de las plantas*/
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -811,6 +811,9 @@ header {
 		flex-direction: column;
 		text-align: center;
 		gap: 10px;
+
+		flex-direction: row; /* 🔥 mantener horizontal */
+		flex-wrap: wrap;
 	}
 
 	/* MENÚ */
@@ -820,6 +823,9 @@ header {
 		overflow-x: auto;
 		gap: 12px;
 		white-space: nowrap;
+
+		width: 100%;
+		justify-content: center;
 	}
 
 	.nav-menu::-webkit-scrollbar {
@@ -836,6 +842,8 @@ header {
         display: flex;
         align-items: center;
         gap: 15px;
+
+		margin-left: auto; /* 🔥 mantiene iconos a la derecha */
 	}
 
 	/* HERO */
@@ -930,23 +938,27 @@ header {
 
     .search-container {
 		position: relative;
+
+		display: flex;
+	    align-items: center;
 	}
 
     .search-box {
 		position: absolute;
-	    top: 45px;
+		top: 40px;
+		right: 0;
 
-        /* 🔥 en vez de pegarlo a la derecha */
-        left: 50%;
-        transform: translateX(-50%);
+		width: 220px;
+		background: #fff;
 
-        width: 200px;
+		border-radius: 10px;
+		box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 
-        background: #fff;
-        padding: 10px;
-        border-radius: 10px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-        z-index: 999;
+		opacity: 0;
+		visibility: hidden;
+		transform: translateY(-10px);
+		transition: 0.25s ease;
+		z-index: 999;
 	}
 
     .search-box input {
@@ -967,6 +979,46 @@ header {
         border-color: #2f7a5c;
         box-shadow: 0 0 0 3px rgba(47, 122, 92, 0.25);
     }
+
+	/* Ajusta panel de notificaciones */
+	.notification-box {
+		width: 220px;
+		right: -10px;   /* evita que se salga del borde */
+		top: 50px;
+	}
+
+	/* Ajusta panel de usuario */
+	.user-box {
+		width: 180px;
+		right: -10px;
+		top: 50px;
+	}
+
+	/* Mejora tamaño táctil */
+	.notification-item,
+	.user-item {
+		font-size: 13px;
+		padding: 12px;
+	}
+
+	/* Iconos un poco más cómodos */
+	.notification-toggle,
+	.user-toggle {
+		font-size: 20px;
+		padding: 8px;
+	}
+
+	.navbar {
+	display: flex;
+	align-items: center;
+}
+
+.navbar-right {
+	margin-left: auto;
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
 }
 
 /* ================= CELULAR PEQUEÑO ================= */
@@ -988,6 +1040,27 @@ header {
 	/* OFERTAS */
 	.section-offers .container-cards-products {
 		grid-template-columns: 1fr;
+	}
+
+	.notification-box,
+	.user-box {
+		width: 90vw;      /* ocupa casi toda la pantalla */
+		right: 5vw;
+		left: auto;
+	}
+
+	.notification-item,
+	.user-item {
+		font-size: 14px;
+	}
+
+	.nav-menu {
+		display: none; /* opcional: menú tipo hamburguesa */
+	}
+
+	.header-icons {
+		margin-left: auto;
+		gap: 10px;
 	}
 }
 
