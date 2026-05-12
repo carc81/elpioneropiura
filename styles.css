@@ -24,9 +24,11 @@ body {
 
 /* ================= BARRA SUPERIOR ================= */
 .announcement-bar {
-	background: #cfe2d9;
+	background: linear-gradient(90deg, #3a7d44, #5aa469);
 	padding: 10px 0;
 	font-size: 14px;
+	color: #fff;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
 .announcement-bar-content {
@@ -42,14 +44,16 @@ body {
 	align-items: center;
 	margin-right: 20px;
 	gap: 6px;
-	color: #2f5d50;
+	color: #f8faf9;
 }
 
 .social-links a {
 	margin-left: 12px;
-	color: #2f5d50;
+	color: #fbfcfb;
 	font-size: 16px;
-	transition: 0.3s;
+	border-radius: 50%;
+
+	ransition: 0.3s ease;
 }
 
 .social-links a:hover {
