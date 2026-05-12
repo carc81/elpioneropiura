@@ -1209,7 +1209,16 @@
 	<i class="fa-brands fa-whatsapp"></i>
 </a>
 
-<!-- ================= SCRIPT ================= -->
+<!-- ================= LIGHTBOX ================= PARA AGRANDAR LAS IMAGENES DE LAS PLANTAS -->
+<div class="lightbox" id="lightbox">
+
+	<span class="close-lightbox">&times;</span>
+
+	<img class="lightbox-img" id="lightbox-img">
+
+</div>
+
+
 <!-- ================= SCRIPT ================= -->
 <script>
 document.addEventListener("DOMContentLoaded", () => {
@@ -1225,6 +1234,16 @@ document.addEventListener("DOMContentLoaded", () => {
 	const notificationToggle = document.querySelector(".fa-bell");
 	const notificationBox = document.querySelector(".notification-box");
 	const notificationContainer = document.querySelector(".notification-container");
+
+	// ================= ELEMENTOS USUARIO =================
+	const userToggle = document.querySelector(".user-toggle");
+	const userBox = document.querySelector(".user-box");
+	const userContainer = document.querySelector(".user-container");
+
+	// ================= ELEMENTOS LIGHTBOX =================
+	const lightbox = document.getElementById("lightbox");
+	const lightboxImg = document.getElementById("lightbox-img");
+	const closeLightbox = document.querySelector(".close-lightbox");
 
 	// 🔴 SEGURIDAD BUSCADOR
 	if (!searchInput || !searchToggle || !searchBox || !searchContainer) {
@@ -1246,15 +1265,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	// ================= WHATSAPP =================
 	document.querySelectorAll(".btn-consultar").forEach(btn => {
+
 		btn.addEventListener("click", function () {
 
 			const planta = this.dataset.planta || "";
 			const precio = this.dataset.precio || "";
 
-			const mensaje = `Hola 👋 quiero información sobre ${planta} - S/${precio}`;
+			const mensaje =
+				`Hola 👋 quiero información sobre ${planta} - S/${precio}`;
 
 			window.open(
-				"https://wa.me/51921957392?text=" + encodeURIComponent(mensaje),
+				"https://wa.me/51921957392?text=" +
+				encodeURIComponent(mensaje),
 				"_blank"
 			);
 		});
@@ -1262,6 +1284,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	// ================= RESET =================
 	function resetProducts() {
+
 		document.querySelectorAll(".card-product").forEach(p => {
 			p.classList.remove("hide");
 			p.style.display = "flex";
@@ -1270,28 +1293,41 @@ document.addEventListener("DOMContentLoaded", () => {
 
 	// ================= BUSCADOR TOGGLE =================
 	searchToggle.addEventListener("click", (e) => {
+
 		e.stopPropagation();
+
 		searchBox.classList.toggle("active");
 
 		if (searchBox.classList.contains("active")) {
-			setTimeout(() => searchInput.focus(), 100);
+
+			setTimeout(() => {
+				searchInput.focus();
+			}, 100);
 		}
 	});
 
-	// cerrar buscador
+	// ================= CERRAR BUSCADOR =================
 	document.addEventListener("click", (e) => {
+
 		if (!searchContainer.contains(e.target)) {
+
 			searchBox.classList.remove("active");
+
 			searchInput.value = "";
+
 			resetProducts();
 		}
 	});
 
-	// ESC
+	// ================= ESC =================
 	document.addEventListener("keydown", (e) => {
+
 		if (e.key === "Escape") {
+
 			searchBox.classList.remove("active");
+
 			searchInput.value = "";
+
 			resetProducts();
 		}
 	});
@@ -1299,16 +1335,22 @@ document.addEventListener("DOMContentLoaded", () => {
 	// ================= FILTRO + SCROLL =================
 	searchInput.addEventListener("input", () => {
 
-		const filter = searchInput.value.toLowerCase().trim();
-		const products = document.querySelectorAll(".card-product");
+		const filter =
+			searchInput.value.toLowerCase().trim();
+
+		const products =
+			document.querySelectorAll(".card-product");
 
 		let firstMatch = null;
 
 		products.forEach(product => {
 
-			const title = product.querySelector("h3")?.textContent.toLowerCase() || "";
+			const title =
+				product.querySelector("h3")
+				?.textContent.toLowerCase() || "";
 
 			if (title.includes(filter)) {
+
 				product.style.display = "flex";
 
 				if (!firstMatch) {
@@ -1316,9 +1358,9 @@ document.addEventListener("DOMContentLoaded", () => {
 				}
 
 			} else {
+
 				product.style.display = "none";
 			}
-
 		});
 
 		if (firstMatch && filter !== "") {
@@ -1341,57 +1383,105 @@ document.addEventListener("DOMContentLoaded", () => {
 	});
 
 	// ================= NOTIFICACIONES =================
-	if (notificationToggle && notificationBox && notificationContainer) {
+	if (
+		notificationToggle &&
+		notificationBox &&
+		notificationContainer
+	) {
 
 		notificationToggle.addEventListener("click", (e) => {
+
 			e.stopPropagation();
+
 			notificationBox.classList.toggle("active");
 		});
 
 		document.addEventListener("click", (e) => {
+
 			if (!notificationContainer.contains(e.target)) {
+
 				notificationBox.classList.remove("active");
 			}
 		});
 	}
 
 	// ================= USUARIO =================
-    const userToggle = document.querySelector(".user-toggle");
-	const userBox = document.querySelector(".user-box");
-	const userContainer = document.querySelector(".user-container");
-
 	if (userToggle && userBox && userContainer) {
 
-	// abrir / cerrar
-	userToggle.addEventListener("click", (e) => {
-		e.stopPropagation();
-		userBox.classList.toggle("active");
-	});
+		// abrir / cerrar
+		userToggle.addEventListener("click", (e) => {
 
-	// cerrar al hacer click fuera
-	document.addEventListener("click", (e) => {
-		if (!userContainer.contains(e.target)) {
-			userBox.classList.remove("active");
-		}
-	});
+			e.stopPropagation();
 
-	// cerrar al hacer click en cualquier opción
-	document.querySelectorAll(".user-item").forEach(item => {
-		item.addEventListener("click", () => {
-			userBox.classList.remove("active");
+			userBox.classList.toggle("active");
+		});
+
+		// cerrar al hacer click fuera
+		document.addEventListener("click", (e) => {
+
+			if (!userContainer.contains(e.target)) {
+
+				userBox.classList.remove("active");
+			}
+		});
+
+		// cerrar al hacer click en opción
+		document.querySelectorAll(".user-item").forEach(item => {
+
+			item.addEventListener("click", () => {
+
+				userBox.classList.remove("active");
+			});
+		});
+
+		// cerrar sesión
+		document.querySelector(".logout")
+		?.addEventListener("click", (e) => {
+
+			e.preventDefault();
+
+			window.location.href = "#";
+		});
+	}
+
+	// ================= LIGHTBOX =================
+
+	// abrir imagen
+	document.querySelectorAll(".img-container img")
+	.forEach(img => {
+
+		img.addEventListener("click", () => {
+
+			lightbox.classList.add("active");
+
+			lightboxImg.src = img.src;
 		});
 	});
 
-	// cerrar sesión (ejemplo)
-	document.querySelector(".logout")?.addEventListener("click", (e) => {
-		e.preventDefault();
+	// cerrar con X
+	closeLightbox.addEventListener("click", () => {
 
-		// aquí puedes limpiar sesión si usas login real
-		// localStorage.clear();
-
-		window.location.href = "#"; // o página login
+		lightbox.classList.remove("active");
 	});
-  } 
+
+	// cerrar click fuera
+	lightbox.addEventListener("click", (e) => {
+
+		if (e.target === lightbox) {
+
+			lightbox.classList.remove("active");
+		}
+	});
+
+	// cerrar con ESC
+	document.addEventListener("keydown", (e) => {
+
+		if (e.key === "Escape") {
+
+			lightbox.classList.remove("active");
+		}
+	});
+
 });
 </script>
 
